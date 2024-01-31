@@ -44,7 +44,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
@@ -54,7 +54,7 @@ android {
 }
 
 dependencies {
-
+    val roomVersion = "2.6.1"
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
@@ -77,7 +77,7 @@ dependencies {
 
     // Room components
     implementation ("androidx.room:room-runtime:2.6.1")
-//    kapt ("androidx.room:room-compiler:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-ktx:2.6.1")
 
     // Retrofit
@@ -86,7 +86,9 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 
     // Paging 3.0
-    implementation ("androidx.paging:paging-compose:3.2.1")
+    implementation ("androidx.paging:paging-compose:3.3.0-alpha02")
+    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation ("androidx.room:room-paging:$roomVersion")
 
     // KotlinX Serialization
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
@@ -95,9 +97,9 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // Dagger - Hilt
-    implementation ("com.google.dagger:hilt-android:2.38.1")
-    kapt ("com.google.dagger:hilt-android-compiler:2.38.1")
-    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+    implementation ("com.google.dagger:hilt-android:2.46")
+    kapt ("com.google.dagger:hilt-android-compiler:2.46")
+    kapt ("androidx.hilt:hilt-compiler:1.1.0")
     implementation ("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     // Coil
@@ -127,8 +129,7 @@ dependencies {
     testImplementation ("org.jetbrains.kotlin:kotlin-test-junit:1.9.22")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
 
-    //kapt
-    kapt("groupId:artifactId:version")
+
 
 }
 kapt {
