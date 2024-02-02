@@ -22,9 +22,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.borutoapp.R
 import com.example.borutoapp.domain.model.OnBoardingPage
+import com.example.borutoapp.navigation.Screen
 import com.example.borutoapp.ui.theme.EXTRA_LARGE_PADDING
 import com.example.borutoapp.ui.theme.PAGING_INDICATOR_SPACING
 import com.example.borutoapp.ui.theme.PAGING_INDICATOR_WIDTH
@@ -35,6 +37,7 @@ import com.example.borutoapp.ui.theme.descriptionColor
 import com.example.borutoapp.ui.theme.inactiveIndicatorColor
 import com.example.borutoapp.ui.theme.titleColor
 import com.example.borutoapp.ui.theme.welcomeScreenBackgroundColor
+import com.example.borutoapp.util.Constants.LAST_ON_BOARDING_PAGE
 import com.example.borutoapp.util.Constants.ON_BOARDING_PAGE_COUNT
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -45,7 +48,10 @@ import com.google.accompanist.pager.rememberPagerState
 
 @ExperimentalPagerApi
 @Composable
-fun WelcomeScreen(navController: NavHostController) {
+fun WelcomeScreen(
+    navController: NavHostController,
+    welcomeViewModel: WelcomeViewModel = hiltViewModel()
+) {
     val pages = listOf(
         OnBoardingPage.First,
         OnBoardingPage.Second,
@@ -83,7 +89,9 @@ fun WelcomeScreen(navController: NavHostController) {
             modifier = Modifier.weight(1f),
             pagerState = pagerState
         ) {
-            
+            navController.popBackStack()
+            navController.navigate(Screen.Home.route)
+            welcomeViewModel.saveOnBoardingState(completed = true)
         }
     }
 }
@@ -143,7 +151,7 @@ fun FinishButton(
     ) {
        AnimatedVisibility(
            modifier = Modifier.fillMaxWidth(),
-           visible = pagerState.currentPage == 2
+           visible = pagerState.currentPage == LAST_ON_BOARDING_PAGE
        ) {
            Button(
                onClick = onClick,
